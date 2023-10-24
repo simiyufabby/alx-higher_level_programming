@@ -1,93 +1,90 @@
 #!/usr/bin/python3
+"""
+This module defines a Node class and a SinglyLinkedList class.
+"""
+
 
 class Node:
-    '''
-    This is a class that defines a node of a singly linked list.
-    '''
+    """
+    This class defines a node of a singly linked list by data and next_node.
+    """
+
     def __init__(self, data, next_node=None):
-        '''
-        Initialize Node instance with data and next_node.
-        '''
+        """
+        This method initializes the node.
+        """
         self.data = data
         self.next_node = next_node
 
     @property
     def data(self):
-        '''
-        Getter for data.
-        '''
+        """
+        This method retrieves the data of the node.
+        """
         return self.__data
 
     @data.setter
     def data(self, value):
-        '''
-        Setter for data.
-        '''
+        """
+        This method sets the data of the node.
+        """
         if not isinstance(value, int):
             raise TypeError("data must be an integer")
-        else:
-            self.__data = value
+        self.__data = value
 
     @property
     def next_node(self):
-        '''
-        Getter for next_node.
-        '''
+        """
+        This method retrieves the next node of the node.
+        """
         return self.__next_node
 
     @next_node.setter
     def next_node(self, value):
-        '''
-        Setter for next_node.
-        '''
-        if value is not None and not isinstance(value, Node):
+        """
+        This method sets the next node of the node.
+        """
+        if not isinstance(value, Node) and value is not None:
             raise TypeError("next_node must be a Node object")
-        else:
-            self.__next_node = value
+        self.__next_node = value
 
 
 class SinglyLinkedList:
-    '''
-    This is a class that defines a singly linked list.
-    '''
+    """
+    This class defines a singly linked list by head.
+    """
+
     def __init__(self):
-        '''
-        Initialize SinglyLinkedList instance with head.
-        '''
+        """
+        This method initializes the singly linked list.
+        """
         self.__head = None
 
     def __str__(self):
-        '''
-        Returns the entire list in stdout, one node number by line.
-        '''
+        """
+        Method returns the string representation of the singly linked list.
+        """
+        result = ""
         current = self.__head
-        nodes = []
-
-        while current is not None:
-            nodes.append(str(current.data))
+        while current:
+            result += str(current.data) + "\n"
             current = current.next_node
-
-        return "\n".join(nodes)
+        return result[:-1]
 
     def sorted_insert(self, value):
-        '''
-        Inserts Node into the correct position in the list (increasin)
-        '''
-
+        """
+        Inserts new node into the correct sorted position in the list.
+        """
         new_node = Node(value)
 
-        if self.__head is None:
-            self.__head = new_node
-            return
-
-        if self.__head.data > value:
+        if not self.__head or value < self.__head.data:
             new_node.next_node = self.__head
             self.__head = new_node
             return
 
         current = self.__head
 
-        while current.next_node is not None and current.next_node.data < value:
+        while current.next_node and value > current.next_node.data:
             current = current.next_node
 
         new_node.next_node = current.next_node

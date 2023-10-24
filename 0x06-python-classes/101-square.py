@@ -47,11 +47,11 @@ class Square:
         This method sets the position of the square.
         """
         if not isinstance(value, tuple) or len(value) != 2:
-            raise TypeError("position must be a tuple of 2 positive integers")
+            raise TypeError("position must be a tuple of 2 +ive integers")
 
         for i in value:
             if not isinstance(i, int) or i < 0:
-                raise TypeError("position must be a tuple of 2 +ve integers")
+                raise TypeError("position must be a tuple of 2 +ive integers")
 
         self.__position = value
 
@@ -65,10 +65,25 @@ class Square:
         """
         This method prints the square with the character #.
         """
+
         if self.__size == 0:
             print()
             return
+
         for _ in range(self.__position[1]):
             print()
+
         for _ in range(self.__size):
             print(' ' * self.__position[0] + '#' * self.__size)
+
+    def __str__(self):
+
+        if self.__size == 0:
+            return ""
+
+        result = "\n" * self.__position[1]
+
+        for _ in range(self.__size):
+            result += ' ' * self.__position[0] + '#' * self.__size + "\n"
+
+        return result[:-1]
