@@ -1,0 +1,30 @@
+"""
+This is the "test_0-add_integer" module.
+The test_0-add_integer module supplies one function, test_add_integer().
+"""
+
+def test_add_integer():
+
+    Test cases for the function add_integer(a, b).
+
+    >>> add_integer(1, 2)
+    3
+    >>> add_integer(100, 200)
+    300
+    >>> add_integer(100.5, 200.5)
+    300
+    >>> add_integer(100.9, 200.9)
+    301
+    >>> add_integer("100", 200)
+    Traceback (most recent call last):
+        ...
+    TypeError: a must be an integer
+    >>> add_integer(100, "200")
+    Traceback (most recent call last):
+        ...
+    TypeError: b must be an integer
+
+# This is required to run the doctest when this script is run.
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
